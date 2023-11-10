@@ -5,7 +5,6 @@ export function PostCard({ post }) {
     <div className="post">
       <img src={post.cover} alt={post.title} />
       <article className="post-content">
-        {/* title se for maior que 15 colocar ... */}
         <h2>
           {post.title.length > 15
             ? `${post.title.substring(0, 15)}...`

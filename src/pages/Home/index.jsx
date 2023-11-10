@@ -1,10 +1,10 @@
 import { Component } from 'react';
-import { Pagination } from './components/Pagination';
-import { Posts } from './components/Posts';
-import { MainContainer } from './components/common/MainContainer';
-import { loadPosts } from './functions/loadPosts';
+import { Pagination } from '../../components/Pagination';
+import { Posts } from '../../components/Posts';
+import { MainContainer } from '../../components/common/MainContainer';
+import { loadPosts } from '../../functions/loadPosts';
 
-export default class App extends Component {
+export class Home extends Component {
   state = {
     posts: [],
     currentPage: 1,
