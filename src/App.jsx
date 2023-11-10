@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import './App.css';
+import { PostCard } from './components/PostCard';
 import { fetcher } from './services/api';
 
 export default class App extends Component {
@@ -36,14 +37,7 @@ export default class App extends Component {
       <section className="container">
         <div className="posts">
           {posts?.map(post => (
-            <div key={post.id} className="post">
-              <img src={post.cover} alt={post.title} />
-              <article className="post-content">
-                <h2>{post.title}</h2>
-                <p>{post.body}</p>
-                <p>Author: {post.userId}</p>
-              </article>
-            </div>
+            <PostCard post={post} key={`post-${post.id}`} />
           ))}
         </div>
       </section>
