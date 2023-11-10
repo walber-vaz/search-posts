@@ -1,67 +1,51 @@
 import { Component } from 'react';
+import './App.css';
+import { fetcher } from './services/api';
 
 export default class App extends Component {
   state = {
-    counter: 0,
-    posts: [
-      {
-        id: 1,
-        title: 'Lorem ipsum dolor sit amet.',
-        body: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptates.',
-      },
-      {
-        id: 2,
-        title: 'Lorem ipsum dolor sit amet.',
-        body: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptates.',
-      },
-      {
-        id: 3,
-        title: 'Lorem ipsum dolor sit amet.',
-        body: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptates.',
-      },
-      {
-        id: 4,
-        title: 'Lorem ipsum dolor sit amet.',
-        body: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptates.',
-      },
-    ],
+    posts: [],
   };
-  timer = null;
 
   componentDidMount() {
-    this.handleTimeout();
+    this.fetchApi();
   }
 
-  componentDidUpdate() {
-    this.handleTimeout();
-  }
+  fetchApi = async () => {
+    const [postsResponse, photosResponse, usersResponse] = await Promise.all([
+      fetcher('/posts'),
+      fetcher('/photos'),
+      fetcher('/users'),
+    ]);
 
-  componentWillUnmount() {
-    clearTimeout(this.timer);
-  }
-
-  handleTimeout = () => {
-    const { posts, counter } = this.state;
-    posts[0].title = 'Ola mundo';
-
-    this.timer = setTimeout(() => {
-      this.setState({ posts, counter: counter + 1 });
-    }, 2000);
+    const postsAndPhotosAndUsers = postsResponse.data.map((post, index) => {
+      const user = usersResponse.data.find(user => user.id === post.userId);
+      return {
+        ...post,
+        cover: photosResponse.data[index].url,
+        userId: user.name,
+      };
+    });
+    this.setState({ posts: postsAndPhotosAndUsers });
   };
 
   render() {
-    const { posts, counter } = this.state;
+    const { posts } = this.state;
 
     return (
-      <section>
-        {posts?.map(post => (
-          <article key={post.id}>
-            <h2>{post.title}</h2>
-            <p>{post.body}</p>
-          </article>
-        ))}
-        <hr />
-        <h1>{counter}</h1>
+      <section className="container">
+        <div className="posts">
+          {posts?.map(post => (
+            <div key={post.id} className="post">
+              <img src={post.cover} alt={post.title} />
+              <article className="post-content">
+                <h2>{post.title}</h2>
+                <p>{post.body}</p>
+                <p>Author: {post.userId}</p>
+              </article>
+            </div>
+          ))}
+        </div>
       </section>
     );
   }
