@@ -1,9 +1,10 @@
+/* eslint-disable react/no-unknown-property */
 import './styles.css';
 
 export function PostCard({ post }) {
   return (
     <div className="post">
-      <img src={post.cover} alt={post.title} />
+      <img fetchpriority="high" src={post.cover} alt={post.title} />
       <article className="post-content">
         <h2>
           {post.title.length > 15

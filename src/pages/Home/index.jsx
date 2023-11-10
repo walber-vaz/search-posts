@@ -40,6 +40,15 @@ export class Home extends Component {
     }
   };
 
+  handleFirstPage = () => {
+    this.loadPostsData(1);
+  };
+
+  handleLastPage = () => {
+    const { totalPages } = this.state;
+    this.loadPostsData(totalPages);
+  };
+
   render() {
     const { posts, currentPage, totalPages } = this.state;
 
@@ -51,6 +60,8 @@ export class Home extends Component {
           totalPages={totalPages}
           onNext={this.handleNextPage}
           onPrev={this.handlePrevPage}
+          onFirst={this.handleFirstPage}
+          onLast={this.handleLastPage}
         />
       </MainContainer>
     );
