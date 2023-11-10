@@ -8,11 +8,16 @@ export class Home extends Component {
   state = {
     posts: [],
     currentPage: 1,
+    allPosts: [],
     totalPages: 1,
+    searchValue: '',
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     this.loadPostsData(1);
+    await loadPosts().then(posts => {
+      this.setState({ allPosts: posts.postsAndPhotosAndUsers });
+    });
   }
 
   loadPostsData = (page = 1) => {
@@ -49,20 +54,40 @@ export class Home extends Component {
     this.loadPostsData(totalPages);
   };
 
+  handleChange = ({ target }) => {
+    const { value } = target;
+    this.setState({ searchValue: value });
+  };
+
   render() {
-    const { posts, currentPage, totalPages } = this.state;
+    const { posts, currentPage, totalPages, searchValue, allPosts } =
+      this.state;
+
+    const filteredPosts = searchValue
+      ? allPosts.filter(post => {
+          return post.title.toLowerCase().includes(searchValue.toLowerCase());
+        })
+      : posts;
 
     return (
       <MainContainer>
-        <Posts posts={posts} />
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onNext={this.handleNextPage}
-          onPrev={this.handlePrevPage}
-          onFirst={this.handleFirstPage}
-          onLast={this.handleLastPage}
+        <input
+          onChange={this.handleChange}
+          value={searchValue}
+          type="search"
+          placeholder="Search"
         />
+        <Posts posts={filteredPosts} />
+        {!searchValue && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onNext={this.handleNextPage}
+            onPrev={this.handlePrevPage}
+            onFirst={this.handleFirstPage}
+            onLast={this.handleLastPage}
+          />
+        )}
       </MainContainer>
     );
   }
