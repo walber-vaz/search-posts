@@ -1,8 +1,9 @@
 import { fetcher } from '../services/api';
 
-export async function loadPosts() {
+export async function loadPosts(limit, page) {
+  const start = page ? (page - 1) * limit : 0;
   const [postsResponse, photosResponse, usersResponse] = await Promise.all([
-    fetcher('/posts'),
+    fetcher(`/posts?_start=${start}&_limit=${limit}`),
     fetcher('/photos'),
     fetcher('/users'),
   ]);
@@ -14,5 +15,10 @@ export async function loadPosts() {
     return { ...rest, cover: photoUrl, userId: user.name };
   });
 
-  return postsAndPhotosAndUsers;
+  const totalPosts = postsResponse.headers['x-total-count'];
+
+  return {
+    postsAndPhotosAndUsers,
+    totalPosts,
+  };
 }

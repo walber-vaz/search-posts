@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { Pagination } from './components/Pagination';
 import { Posts } from './components/Posts';
 import { MainContainer } from './components/common/MainContainer';
 import { loadPosts } from './functions/loadPosts';
@@ -6,20 +7,51 @@ import { loadPosts } from './functions/loadPosts';
 export default class App extends Component {
   state = {
     posts: [],
+    currentPage: 1,
+    totalPages: 1,
   };
 
   componentDidMount() {
-    loadPosts().then(postsAndPhotosAndUsers => {
-      this.setState({ posts: postsAndPhotosAndUsers });
-    });
+    this.loadPostsData(1);
   }
 
+  loadPostsData = (page = 1) => {
+    const limit = 8;
+    loadPosts(limit, page).then(({ postsAndPhotosAndUsers, totalPosts }) => {
+      this.setState({
+        posts: postsAndPhotosAndUsers,
+        totalPages: Math.ceil(totalPosts / limit),
+        currentPage: page,
+      });
+    });
+  };
+
+  handleNextPage = () => {
+    const { currentPage, totalPages } = this.state;
+    if (currentPage < totalPages) {
+      this.loadPostsData(currentPage + 1);
+    }
+  };
+
+  handlePrevPage = () => {
+    const { currentPage } = this.state;
+    if (currentPage > 1) {
+      this.loadPostsData(currentPage - 1);
+    }
+  };
+
   render() {
-    const { posts } = this.state;
+    const { posts, currentPage, totalPages } = this.state;
 
     return (
       <MainContainer>
         <Posts posts={posts} />
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onNext={this.handleNextPage}
+          onPrev={this.handlePrevPage}
+        />
       </MainContainer>
     );
   }

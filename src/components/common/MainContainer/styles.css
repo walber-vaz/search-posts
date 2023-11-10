@@ -1,6 +1,9 @@
 .container {
-  max-width: 120rem;
-  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 153.6rem;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 2rem 0;
 }
