@@ -12,10 +12,17 @@ export default function Footer() {
             hover:underline
           "
           href="https://github.com/walber-vaz"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           Walber Vaz
         </a>
-        <span> &copy; {new Date().getFullYear()}</span>
+        <span
+          data-testid="footer-year"
+          className="ml-1 transition duration-500 hover:text-blue-700"
+        >
+          &copy; {new Date().getFullYear().toString()}
+        </span>
       </p>
     </footer>
   );
