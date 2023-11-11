@@ -17,7 +17,12 @@ export default function Footer() {
         >
           Walber Vaz
         </a>
-        <span> &copy; {new Date().getFullYear().toString()}</span>
+        <span
+          data-testid="footer-year"
+          className="ml-1 transition duration-500 hover:text-blue-700"
+        >
+          &copy; {new Date().getFullYear().toString()}
+        </span>
       </p>
     </footer>
   );
