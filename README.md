@@ -1,4 +1,4 @@
-# Projeto de Reach usando api de posts do Json Placeholder
+# Projeto de React usando api de posts do JsonPlaceholder
 
 Este projeto foi criado com [Vite](https://vitejs.dev/). Para mais informações sobre como configurar o projeto, acesse a [documentação](https://vitejs.dev/guide/).
 
