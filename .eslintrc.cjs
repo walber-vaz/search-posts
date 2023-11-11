@@ -34,6 +34,7 @@ module.exports = {
     'react/jsx-uses-vars': 'off',
     'no-unused-vars': 'off',
     'react-hooks/rules-of-hooks': 'error',
+    'react-refresh/only-export-components': 'off',
     'react-hooks/exhaustive-deps': 'warn',
     'max-len': [
       'error',

@@ -1,6 +1,7 @@
+import { memo } from 'react';
 import './styles.css';
 
-export default function InputSearch({ searchValue, onChange }) {
+function InputSearch({ searchValue, onChange }) {
   return (
     <input
       onChange={onChange}
@@ -11,3 +12,5 @@ export default function InputSearch({ searchValue, onChange }) {
     />
   );
 }
+
+export default memo(InputSearch);

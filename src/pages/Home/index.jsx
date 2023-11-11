@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import InputSearch from '../../components/InputSearch';
 import { Loading } from '../../components/Loading';
 import { NotFoundSearch } from '../../components/NotFoundSearch';
@@ -13,21 +13,25 @@ export function Home() {
   const [allPosts, setAllPosts] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
   const [searchValue, setSearchValue] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
-  const loadPostsData = useCallback((page = 1) => {
+  const loadPostsData = useCallback(async (page = 1) => {
     const limit = 8;
-    loadPosts(limit, page).then(({ postsAndPhotosAndUsers, totalPosts }) => {
-      setPosts(postsAndPhotosAndUsers);
-      setTotalPages(Math.ceil(totalPosts / limit));
-      setCurrentPage(page);
-    });
+    const { postsAndPhotosAndUsers, totalPosts } = await loadPosts(limit, page);
+    setPosts(postsAndPhotosAndUsers);
+    setTotalPages(Math.ceil(totalPosts / limit));
+    setCurrentPage(page);
   }, []);
 
   const loadPostsInitial = useCallback(async () => {
-    loadPostsData(1);
-    await loadPosts().then(posts => {
-      setAllPosts(posts.postsAndPhotosAndUsers);
-    });
+    setIsLoading(true);
+    await Promise.all([
+      loadPostsData(1),
+      loadPosts().then(posts => {
+        setAllPosts(posts.postsAndPhotosAndUsers);
+      }),
+    ]);
+    setIsLoading(false);
   }, [loadPostsData]);
 
   useEffect(() => {
@@ -59,13 +63,15 @@ export function Home() {
     setSearchValue(value);
   };
 
-  const filteredPosts = searchValue
-    ? allPosts.filter(post => {
-        return post.title.toLowerCase().includes(searchValue.toLowerCase());
-      })
-    : posts;
+  const filteredPosts = useMemo(() => {
+    return searchValue
+      ? allPosts.filter(post => {
+          return post.title.toLowerCase().includes(searchValue.toLowerCase());
+        })
+      : posts;
+  }, [searchValue, allPosts, posts]);
 
-  if (!posts.length && !allPosts.length) {
+  if (isLoading) {
     return <Loading />;
   }
 
