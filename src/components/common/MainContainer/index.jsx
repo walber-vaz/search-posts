@@ -1,3 +1,5 @@
+import Footer from '../Footer';
+
 export function MainContainer({ children }) {
   return (
     <section
@@ -7,6 +9,7 @@ export function MainContainer({ children }) {
       `}
     >
       {children}
+      <Footer />
     </section>
   );
 }
