@@ -1,6 +1,8 @@
 {
   "name": "curso-react",
-  "private": true,
+  "license": "MIT",
+  "author": "Walber Vaz <wvs.walber@gmail.com>",
+  "description": "Api de Posts com React",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
