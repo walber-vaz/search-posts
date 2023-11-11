@@ -3,6 +3,7 @@ import { memo } from 'react';
 function InputSearch({ searchValue, onChange }) {
   return (
     <input
+      data-testid="input-search"
       onChange={onChange}
       value={searchValue}
       type="search"
