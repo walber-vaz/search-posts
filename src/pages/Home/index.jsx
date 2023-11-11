@@ -16,7 +16,7 @@ export function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
   const loadPostsData = useCallback(async (page = 1) => {
-    const limit = 8;
+    const limit = window.innerWidth < 768 ? 4 : 6;
     const { postsAndPhotosAndUsers, totalPosts } = await loadPosts(limit, page);
     setPosts(postsAndPhotosAndUsers);
     setTotalPages(Math.ceil(totalPosts / limit));

@@ -6,6 +6,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
+    'plugin:tailwindcss/recommended',
     'plugin:prettier/recommended',
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
@@ -21,7 +22,7 @@ module.exports = {
       version: 'detect',
     },
   },
-  plugins: ['react', 'react-hooks', 'react-refresh', 'prettier'],
+  plugins: ['react', 'react-hooks', 'react-refresh', 'prettier', 'tailwindcss'],
   rules: {
     'react-refresh/only-export-components': [
       'warn',

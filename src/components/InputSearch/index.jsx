@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import './styles.css';
 
 function InputSearch({ searchValue, onChange }) {
   return (
@@ -8,7 +7,11 @@ function InputSearch({ searchValue, onChange }) {
       value={searchValue}
       type="search"
       placeholder="Search"
-      className="input-search"
+      className={`
+        form-input mb-2 w-full
+        rounded-xl px-4 py-3 text-xl
+        md:w-1/2
+      `}
     />
   );
 }
