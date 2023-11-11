@@ -8,8 +8,8 @@
   "scripts": {
     "dev": "vite --open",
     "build": "vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 && prettier --check .",
-    "lint:fix": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix && prettier --write .",
+    "lint": "eslint ./src  --ext js,jsx --report-unused-disable-directives --max-warnings 0 && prettier --check ./src",
+    "lint:fix": "eslint ./src --ext js,jsx --report-unused-disable-directives --max-warnings 0 --fix && prettier --write ./src",
     "preview": "vite preview"
   },
   "dependencies": {
