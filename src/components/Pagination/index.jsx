@@ -7,7 +7,13 @@ export function Pagination({
   onLast,
 }) {
   return (
-    <div className="flex w-full items-center justify-between p-2 md:justify-center md:gap-4">
+    <div
+      className={`
+        mt-6 flex w-full
+        items-center justify-between
+        p-2 md:justify-center md:gap-4
+      `}
+    >
       <button
         type="button"
         onClick={onFirst}
