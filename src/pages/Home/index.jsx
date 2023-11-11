@@ -1,4 +1,7 @@
 import { Component } from 'react';
+import InputSearch from '../../components/InputSearch';
+import { Loading } from '../../components/Loading';
+import { NotFoundSearch } from '../../components/NotFoundSearch';
 import { Pagination } from '../../components/Pagination';
 import { Posts } from '../../components/Posts';
 import { MainContainer } from '../../components/common/MainContainer';
@@ -69,15 +72,17 @@ export class Home extends Component {
         })
       : posts;
 
+    if (!posts.length && !allPosts.length) {
+      return <Loading />;
+    }
+
     return (
       <MainContainer>
-        <input
-          onChange={this.handleChange}
-          value={searchValue}
-          type="search"
-          placeholder="Search"
-        />
-        <Posts posts={filteredPosts} />
+        <InputSearch searchValue={searchValue} onChange={this.handleChange} />
+        {filteredPosts.length === 0 && (
+          <NotFoundSearch searchValue={searchValue} />
+        )}
+        {filteredPosts.length > 0 && <Posts posts={filteredPosts} />}
         {!searchValue && (
           <Pagination
             currentPage={currentPage}
