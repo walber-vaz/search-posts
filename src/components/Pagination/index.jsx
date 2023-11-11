@@ -1,6 +1,3 @@
-import React from 'react';
-import './styles.css';
-
 export function Pagination({
   currentPage,
   totalPages,
@@ -10,33 +7,57 @@ export function Pagination({
   onLast,
 }) {
   return (
-    <div className="container-pagination">
+    <div className="flex w-full items-center justify-between p-2 md:justify-center md:gap-4">
       <button
-        className="first-btn"
+        type="button"
         onClick={onFirst}
         disabled={currentPage === 1}
+        className={`
+          hidden hover:underline md:inline
+          ${currentPage === 1 ? 'cursor-not-allowed opacity-50' : ''}
+        `}
       >
         Primeira
       </button>
       <button
-        className="btn-pagination"
+        type="button"
         onClick={onPrev}
+        className={`
+          rounded-full bg-blue-500 px-4
+          py-3 text-white transition duration-300
+          hover:bg-blue-600 hover:text-gray-300
+          ${currentPage === 1 ? 'cursor-not-allowed opacity-50' : ''}
+        `}
         disabled={currentPage === 1}
       >
         Anterior
       </button>
-      <span>
+      <span
+        className={`
+          hidden text-gray-800 md:inline
+        `}
+      >
         Página {currentPage} de {totalPages}
       </span>
       <button
-        className="btn-pagination"
+        type="button"
+        className={`
+          rounded-full bg-blue-500 px-4
+          py-3 text-white transition duration-300
+          hover:bg-blue-600 hover:text-gray-300
+          ${currentPage === totalPages ? 'cursor-not-allowed opacity-50' : ''}
+        `}
         onClick={onNext}
         disabled={currentPage === totalPages}
       >
         Próxima
       </button>
       <button
-        className="first-btn"
+        type="button"
+        className={`
+          hidden hover:underline md:inline
+          ${currentPage === totalPages ? 'cursor-not-allowed opacity-50' : ''}
+        `}
         onClick={onLast}
         disabled={currentPage === totalPages}
       >

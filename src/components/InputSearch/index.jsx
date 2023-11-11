@@ -8,11 +8,9 @@ function InputSearch({ searchValue, onChange }) {
       type="search"
       placeholder="Search"
       className={`
-        mb-2 w-full rounded-lg
-        px-4 py-3 text-2xl
-        text-gray-500 focus:outline-none
-        focus:ring-2 focus:ring-purple-600
-        md:w-1/4 md:text-xl
+        form-input mb-2 w-full
+        rounded-xl px-4 py-3 text-xl
+        md:w-1/2
       `}
     />
   );
