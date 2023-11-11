@@ -14,7 +14,6 @@
     "test": "jest --passWithNoTests --verbose",
     "test:watch": "jest --watch --passWithNoTests --verbose",
     "test:coverage": "jest --coverage --passWithNoTests --verbose"
-    "preview": "vite preview"
   },
   "dependencies": {
     "axios": "^1.6.1",
@@ -25,7 +24,6 @@
     "@babel/core": "^7.23.3",
     "@babel/preset-env": "^7.23.3",
     "@babel/preset-react": "^7.23.3",
-    "@tailwindcss/forms": "^0.5.7",
     "@testing-library/jest-dom": "^6.1.4",
     "@testing-library/react": "^14.1.0",
     "@tailwindcss/forms": "^0.5.7",
